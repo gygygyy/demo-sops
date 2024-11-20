@@ -1,0 +1,10 @@
+---
+
+users:
+  - default
+  - name: ubuntu
+    sudo: ALL=(ALL) NOPASSWD:ALL
+    home: /home/ubuntu
+    ssh: /bin/bash
+    ssh_authorized_keys:
+      - <content of YOUR public key>
