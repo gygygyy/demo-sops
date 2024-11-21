@@ -2,7 +2,7 @@
 
 export DEBIAN_FRONTEND="noninteractive"
 
-# Install SOPS
+# 安裝 SOPS
 ARCH="$(uname -m)"
 export ARCH
 case $(uname -m) in \

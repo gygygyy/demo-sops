@@ -2,6 +2,7 @@
 
 export DEBIAN_FRONTEND="noninteractive"
 
+# 安裝套件
 apt-get update
 apt-get install -y \
     curl \
@@ -12,13 +13,13 @@ apt-get install -y \
     wget \
     age
 
-# Install Ansible
+# 安裝 Ansible 及需使用的 Python 套件
 add-apt-repository --yes --update ppa:ansible/ansible
 apt-get install -y \
   ansible \
   python3-pymysql
 
-# Install Terraform
+# 安裝 Terraform
 wget -O- https://apt.releases.hashicorp.com/gpg | \
   gpg --dearmor | \
   tee /usr/share/keyrings/hashicorp-archive-keyring.gpg > /dev/null
