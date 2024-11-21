@@ -1,0 +1,41 @@
+---
+
+- hosts: localhost
+  tasks:
+    - include_vars:
+        file: "{{ playbook_dir }}/vars.yaml"
+
+    - name: Load encrypted credentials
+      community.sops.load_vars:
+        file: "{{ sops_encrypted_file }}"
+
+    - name: Show mysql hosts
+      debug:
+        msg: "MySQL host is: {{ mysql.host }}"
+
+    - name: Show mysql superuser username
+      debug:
+        msg: "MySQL superuser username is: {{ mysql.superuser.username }}"
+
+    - name: Show mysql superuser password
+      debug:
+        msg: "MySQL superuser password is: {{ mysql.superuser.password }}"
+
+    - name: Create a new database with name '{{ mysql.db_ansible.database }}'
+      community.mysql.mysql_db:
+        state: present
+        name: "{{ mysql.db_ansible.database }}"
+        login_host: "{{ mysql.host }}"
+        login_user: "{{ mysql.superuser.username }}"
+        login_password: "{{ mysql.superuser.password }}"
+
+    - name: Create database user with name {{ mysql.db_ansible.name }} and password {{ mysql.db_ansible.password }} with database {{ mysql.db_ansible.database }} all privileges
+      community.mysql.mysql_user:
+        state: present
+        name: "{{ mysql.db_ansible.username }}"
+        password: "{{ mysql.db_ansible.password }}"
+        host: "%"
+        login_host: "{{ mysql.host }}"
+        login_user: "{{ mysql.superuser.username }}"
+        login_password: "{{ mysql.superuser.password }}"
+        priv: "{{ mysql.db_ansible.database }}.*:ALL,GRANT"

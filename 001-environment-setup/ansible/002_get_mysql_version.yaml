@@ -1,0 +1,31 @@
+---
+
+- hosts: localhost
+  tasks:
+    - name: Load encrypted credentials
+      community.sops.load_vars:
+        file: "{{ sops_encrypted_file }}"
+
+    - name: Show mysql hosts
+      debug:
+        msg: "MySQL host is: {{ mysql.host }}"
+
+    - name: Show mysql root username
+      debug:
+        msg: "MySQL root username is: {{ mysql.username }}"
+
+    - name: Show mysql root password
+      debug:
+        msg: "MySQL root password is: {{ mysql.password }}"
+
+    - name: Get mysql version
+      community.mysql.mysql_info:
+        login_host: "{{ mysql.host }}"
+        login_user: "{{ mysql.username }}"
+        login_password: "{{ mysql.password }}"
+        filter: version
+      register: result
+
+    - debug:
+        var: result
+

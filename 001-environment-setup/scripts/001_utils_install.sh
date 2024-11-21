@@ -14,7 +14,9 @@ apt-get install -y \
 
 # Install Ansible
 add-apt-repository --yes --update ppa:ansible/ansible
-apt-get install -y ansible
+apt-get install -y \
+  ansible \
+  python3-pymysql
 
 # Install Terraform
 wget -O- https://apt.releases.hashicorp.com/gpg | \
@@ -32,3 +34,5 @@ echo "deb [signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] \
 apt-get update
 apt-get install -y terraform
 terraform --version
+
+systemctl daemon-reload
