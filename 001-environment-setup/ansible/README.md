@@ -6,5 +6,3 @@
 ansible-galaxy install \
   -r 001_ansible_galaxy_requirements.yml
 ```
-
-

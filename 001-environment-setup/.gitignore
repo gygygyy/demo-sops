@@ -1,1 +1,9 @@
 cloud-init.yaml
+.terraform
+.idea
+.DS_Store
+.terraform.lock.hcl
+*secret.yaml
+*secret.json
+\.decrypted~*
+terraform.tfstate

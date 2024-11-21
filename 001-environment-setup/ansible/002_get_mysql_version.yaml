@@ -2,6 +2,9 @@
 
 - hosts: localhost
   tasks:
+    - include_vars:
+        file: "{{ playbook_dir }}/vars.yaml"
+
     - name: Load encrypted credentials
       community.sops.load_vars:
         file: "{{ sops_encrypted_file }}"
@@ -10,22 +13,21 @@
       debug:
         msg: "MySQL host is: {{ mysql.host }}"
 
-    - name: Show mysql root username
+    - name: Show mysql superuser username
       debug:
-        msg: "MySQL root username is: {{ mysql.username }}"
+        msg: "MySQL superuser username is: {{ mysql.superuser.username }}"
 
-    - name: Show mysql root password
+    - name: Show mysql superuser password
       debug:
-        msg: "MySQL root password is: {{ mysql.password }}"
+        msg: "MySQL superuser password is: {{ mysql.superuser.password }}"
 
     - name: Get mysql version
       community.mysql.mysql_info:
         login_host: "{{ mysql.host }}"
-        login_user: "{{ mysql.username }}"
-        login_password: "{{ mysql.password }}"
+        login_user: "{{ mysql.superuser.username }}"
+        login_password: "{{ mysql.superuser.password }}"
         filter: version
       register: result
 
     - debug:
         var: result
-
