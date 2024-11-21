@@ -13,8 +13,8 @@
   multipass launch noble \
     --name utils \
     --mount scripts:/scripts \
-    --mount ansible:/ansible \
-    --mount terraform:/terraform \
+    --mount demo_ansible:/demo_ansible \
+    --mount demo_terraform:/demo_terraform \
     --mount demo_data:/demo_data \
     --cloud-init cloud-init.yaml
   ```
